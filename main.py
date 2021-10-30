@@ -9,7 +9,7 @@ pygame.display.set_caption("Pythong game")
 
 
 HEALTH_FONT = pygame.font.SysFont('arial', 40)
-
+WINNER_FONT = pygame.font.SysFont('arial', 100)
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -112,6 +112,15 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):
             red_bullets.remove(bullet)
 
 
+def draw_winner(text):
+    draw_text = WINNER_FONT.render(text, 1, WHITE)
+    WIN.blit(draw_text, (WIDTH//2 - draw_text.get_width() /
+             2, HEIGHT/2 - draw_text.get_height()/2))
+
+    pygame.display.update()
+    pygame.time.delay(5000)
+
+
 def main():
     red = pygame.Rect(700, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
@@ -154,7 +163,8 @@ def main():
             winner_text = "Red Wins!"
 
         if winner_text != "":
-            pass  # someone one
+            draw_winner(winner_text)
+            break
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
